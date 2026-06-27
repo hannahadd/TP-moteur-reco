@@ -1,0 +1,44 @@
+{
+  "Profil_A": [
+    {
+      "id_offre": "default_90",
+      "score": 0.2591
+    },
+    {
+      "id_offre": "default_43",
+      "score": 0.2434
+    },
+    {
+      "id_offre": "default_121",
+      "score": 0.2336
+    }
+  ],
+  "Profil_B": [
+    {
+      "id_offre": "default_77",
+      "score": 0.2825
+    },
+    {
+      "id_offre": "default_50",
+      "score": 0.2594
+    },
+    {
+      "id_offre": "default_40",
+      "score": 0.2359
+    }
+  ],
+  "Profil_C": [
+    {
+      "id_offre": "default_25",
+      "score": 0.3083
+    },
+    {
+      "id_offre": "default_43",
+      "score": 0.264
+    },
+    {
+      "id_offre": "default_141",
+      "score": 0.2426
+    }
+  ]
+}
