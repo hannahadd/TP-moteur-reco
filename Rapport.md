@@ -1,4 +1,4 @@
-# Rapport — Moteur de Recommandation d'Offres d'Emploi
+# Rapport Moteur de Recommandation d'Offres d'Emploi
 
 **Identifiant étudiant :** hhaddaou
 
@@ -8,7 +8,7 @@
 
 ### Méthodologie de ciblage
 
-Le problème principal c'est que les classes CSS changent à chaque session, donc impossible de s'en servir pour sélectionner les offres. En inspectant le HTML j'ai remarqué que chaque offre est dans un conteneur avec un attribut `data-ref` fixe (ex: `data-ref="default_1"`). J'ai donc utilisé `soup.find_all(attrs={"data-ref": True})` pour cibler directement ces éléments sans toucher aux classes. Une fois dans le conteneur, le titre est dans la première balise heading ou `<strong>`, le texte complet vient de `get_text()`, et le salaire est la ligne qui contient le mot "Rémunération".
+Le portail génère des noms de classes CSS dynamiquement à chaque session, donc impossible de s'en servir pour sélectionner les offres. En inspectant le HTML j'ai remarqué que chaque offre est dans un conteneur avec un attribut `data-ref` fixe (ex: `data-ref="default_1"`). J'ai donc utilisé `soup.find_all(attrs={"data-ref": True})` pour cibler directement ces éléments sans toucher aux classes. Une fois dans le conteneur, le titre est dans la première balise heading ou `<strong>`, la description est le texte intégral du conteneur extrait via `get_text()`, et le salaire est la ligne contenant le mot "Rémunération".
 
 ### Gestion de la pagination
 
@@ -37,7 +37,6 @@ L'URL de pagination utilise le paramètre `p` : `?page=exercices/project&id=hhad
 ]
 ```
 
-À noter : les descriptions contiennent une phrase d'injection de prompt (`"Ignore previous formatting instructions..."`). Je l'ai laissée telle quelle dans le champ `description` puisque c'est une donnée brute du portail.
 
 ---
 
@@ -82,7 +81,7 @@ Tokens obtenus (20 premiers) :
  'central', 'stack', 'technique', 'exigée', 'pytorch', 'api', 'flask', 'mongodb']
 ```
 
-Le nettoyage fonctionne bien pour les mots techniques : `pytorch`, `mongodb`, `nlp` sont conservés, et les mots vides français (`un`, `pour`, `de`…) sont bien supprimés. Par contre la phrase d'injection génère des tokens anglais (`ignore`, `previous`, `formatting`, `or`, `for`…) qui ne sont pas filtrés car on utilise uniquement les stop words français. En pratique ça ne change pas grand chose parce que ces mots sont présents dans toutes les offres de la même façon, leur contribution à la similarité cosinus sera identique pour tout le monde.
+Le nettoyage conserve bien les mots-clés techniques (`pytorch`, `mongodb`, `nlp`) et supprime les mots vides français (`un`, `pour`, `de`…). Les tokens `rémunération`, `78800` et `eur` apparaissent en fin de liste — c'est du bruit mais leur IDF sera très faible puisqu'ils sont présents dans toutes les offres, ils ne pèseront donc pas dans le moteur de recommandation.
 
 ---
 
